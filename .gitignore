@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Generated resume PDFs (keep the markdown source, exclude the rendered output)
+generated_resumes/*.pdf
+
+# Reference resume PDFs (contain personal contact info)
+/resume_*.pdf

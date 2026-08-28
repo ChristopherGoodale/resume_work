@@ -29,7 +29,7 @@ Raw facts, stripped of resume formatting (no bold lead phrases, no em-dash bulle
 - **Data & Warehousing**: Oracle, PostgreSQL, Amazon Redshift, SAP S/4HANA, ETL / ELT pipeline design
 - **Analytics & ML**: Time-series forecasting (ARIMA), anomaly detection (isolation forest), embedding / nearest-neighbor similarity search, A/B testing & MDE (minimum detectable effect) design, statistical analysis
 - **BI & Visualization**: Tableau, Power BI, Streamlit, Excel (advanced)
-- **Cloud & Tooling**: AWS, Docker, Git, Linux, JIRA
+- **Cloud & Tooling**: AWS, Docker, Git, Linux, JIRA, Confluence
 - **Enterprise / ERP**: SAP, Workday, NetSuite, MIP, Sage Timberline
 - **Applied AI**: Claude Code, Claude Skills, AI Agent Workflows =
 
@@ -54,7 +54,8 @@ Raw facts, stripped of resume formatting (no bold lead phrases, no em-dash bulle
 1. Proposed and designed an isolation-forest anomaly-detection framework to proactively flag fraudulent or erroneous general ledger entries, strengthening compliance and data integrity. *(domain: ML/anomaly detection, financial controls, compliance)*
 2. Built an embedding-based similarity model with nearest-neighbor search to quantify differences across ~120,000 vehicles and generate data-driven model recommendations. *(domain: ML, embeddings, recommendation systems, scale)*
 3. Drove the design of an enterprise financial data model with cross-functional consultants and SMEs, spanning SAP S/4HANA and Oracle EPBCS, establishing foundational analytical capability for financial planning. *(domain: enterprise data architecture, SAP, Oracle EPBCS, FP&A)*
-4. Developed implementation strategies that carried complex financial data models from design into operational use, enabling enhanced financial oversight. *(domain: implementation, financial oversight)*
+4. Collaborated with cross-functional finance and IT stakeholders in an Agile cadence, translating complex reporting needs into prioritized epics, user stories, and sprint deliverables. *(domain: Agile/Scrum methodology, backlog and epic management, user story writing, sprint planning, cross-functional finance-IT collaboration, product ownership)*
+5. Developed implementation strategies that carried complex financial data models from design into operational use, enabling enhanced financial oversight. *(domain: implementation, financial oversight)*
 
 ---
 
@@ -95,11 +96,9 @@ Raw facts, stripped of resume formatting (no bold lead phrases, no em-dash bulle
 
 ---
 
-## Project: AI-Driven Resume Tailoring System (Personal)
+## Projects
 
-1. Designed and built a structured, AI-agent-driven resume generation system that separates raw career facts (a single content-bank file) from rendering rules (a separate formatting/style file), so any job posting can be turned into an accurately tailored, truthful resume on demand rather than hand-edited from scratch each time. *(domain: AI agent workflows, information architecture, personal automation)*
-2. Built the system to explicitly refuse fabrication: the agent is instructed to pull only from the verified achievement bank and to flag any skill or experience a job posting calls for that isn't actually backed by real history, rather than inventing it — prioritizing decision-grade honesty in the same way as the analytical work described elsewhere in this document. *(domain: AI governance, prompt/instruction design, integrity by design)*
-3. Automated the full pipeline end-to-end, from job-posting intake through content selection, tailored rewriting, and Markdown-to-PDF export via Pandoc and wkhtmltopdf, cutting a multi-hour manual tailoring process down to a single guided generation step. *(domain: workflow automation, documentation-as-code, Pandoc/wkhtmltopdf)*
+1. Designed and built a structured, AI-agent-driven resume generation system that separates raw career facts from rendering rules and automates the full pipeline end-to-end, from job-posting intake through content selection, tailored rewriting, and Markdown-to-PDF export via Pandoc and wkhtmltopdf, refusing fabrication by pulling only from a verified achievement bank and flagging any skill or experience a posting calls for that isn't backed by real history. *(domain: AI agent workflows, information architecture, AI governance, workflow automation, Pandoc/wkhtmltopdf)*
 
 ---
 

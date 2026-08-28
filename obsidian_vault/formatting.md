@@ -46,7 +46,8 @@ Section order:
 1. SUMMARY
 2. TECHNICAL SKILLS
 3. PROFESSIONAL EXPERIENCE
-4. EDUCATION & CERTIFICATIONS
+4. PROJECTS (optional - include only when a project is relevant to the posting)
+5. EDUCATION & CERTIFICATIONS
 
 ---
 
@@ -142,6 +143,22 @@ Rules:
 - A process or efficiency improvement
 - Cross-functional or leadership impact
 - An honest/null result if applicable
+
+---
+
+## PROJECTS
+
+Optional section - include only when a project in `achievements.md` (see the `## Project: ...` entries) is relevant to the target posting. Skip it entirely rather than force-fitting an irrelevant project in.
+
+```
+[Project Name] (Personal)                              ← bold, own heading line
+```
+
+- Project heading follows the same pattern as a Job Header, with `(Personal)` (or the relevant qualifier) standing in for the employer line
+- No dates required unless the project has a meaningful timeframe
+- Bullets follow the same Bullet Style rules as PROFESSIONAL EXPERIENCE - full verb-first sentences, no bold lead phrase, closing on a present-participle impact clause
+- 1–3 bullets - a project entry should stay lean relative to a full role
+- Select bullets the same way as experience bullets: relevance to the posting's keywords/skills/domain, not just "what's interesting"
 
 ---
 

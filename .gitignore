@@ -218,7 +218,13 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Generated resume PDFs (keep the markdown source, exclude the rendered output)
+# except the general resume, which is pushed to the repo
 generated_resumes/*.pdf
+!generated_resumes/resume_general_*.pdf
 
 # Reference resume PDFs (contain personal contact info)
 /resume_*.pdf
+
+# Per-company job postings and generated resumes: kept locally, not pushed
+job_postings/archive/
+generated_resumes/archive/

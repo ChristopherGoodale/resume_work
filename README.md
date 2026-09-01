@@ -13,12 +13,33 @@ Resume content and resume style are split apart so each can evolve independently
 - **`generated_resumes/`** — where tailored resumes land after generation, one file per application.
 - **`resume_26.08.05.pdf`** — the original resume this whole system was reverse-engineered from.
 
+## Structure
+
+```
+resume_work/
+├── methodology.md              # generation recipe
+├── obsidian_vault/
+│   ├── achievements.md         # source of truth for content
+│   ├── formatting.md           # style/layout rules
+│   └── resume_style.css        # PDF export stylesheet
+├── job_postings/
+│   ├── archive/                # per-company postings (local only, gitignored)
+│   └── ...                     # active postings
+└── generated_resumes/
+    ├── archive/                 # per-company resumes (local only, gitignored)
+    ├── resume_general_*.md      # the one resume tracked in this repo
+    └── resume_general_*.pdf
+```
+
+Every resume tailored to a specific company/posting is generated locally and moved into the relevant `archive/` folder — those folders are gitignored, so only the general-purpose resume is ever pushed to this repo. This keeps company-specific applications and their content decisions off GitHub while still versioning the system that produces them.
+
 ## How to generate a new resume
 
 1. Save the target job posting as a markdown file under `job_postings/`, named `[company]_[role-slug]_[YYYY.MM.DD].md`.
 2. Ask Claude to generate a tailored resume from it, pointing to that file. Claude will follow `methodology.md`, pulling content from `achievements.md` and formatting it per `formatting.md`.
 3. Review the output, especially which achievements got selected/dropped per role — nothing should be invented that isn't in `achievements.md`.
-4. The result is saved to `generated_resumes/resume_[company]_[date].md`; export/convert to PDF as needed.
+4. The result is saved to `generated_resumes/resume_[company]_[date].md` and exported to a matching `.pdf`.
+5. Once you're done with a posting/resume pair, move both into `job_postings/archive/` and `generated_resumes/archive/` respectively to keep them local-only.
 
 ## Keeping it current
 
@@ -30,5 +51,4 @@ Whenever a new achievement happens at work, add it to `achievements.md` (role, w
 - Cover-letter generation using the same achievements + posting inputs
 - A simple log of which resume version was sent to which posting and when
 - ATS/keyword-match scoring — check a generated resume against a posting's keywords before sending
-- PDF export step so generation produces a ready-to-send file, not just markdown
 - Periodic review pass to keep `achievements.md` from going stale as roles change

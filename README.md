@@ -41,6 +41,22 @@ Every resume tailored to a specific company/posting is generated locally and mov
 4. The result is saved to `generated_resumes/resume_[company]_[date].md` and exported to a matching `.pdf`.
 5. Once you're done with a posting/resume pair, move both into `job_postings/archive/` and `generated_resumes/archive/` respectively to keep them local-only.
 
+## Publishable resume page
+
+`docs/` is a static page (`index.html`) that embeds `docs/resume.pdf` for anyone
+to view/download — meant to be served from GitHub Pages (Settings → Pages →
+Deploy from branch → `main` / `docs`). It always shows whichever PDF is copied
+into `docs/resume.pdf`; it does not auto-detect the latest `generated_resumes/`
+file.
+
+To update the published page after generating a new general resume:
+
+```
+cp generated_resumes/resume_general_<latest-date>.pdf docs/resume.pdf
+```
+
+then commit and push.
+
 ## Keeping it current
 
 Whenever a new achievement happens at work, add it to `achievements.md` (role, what was built, tools/methods used, quantified outcome) rather than waiting until the next job application. A thin, current achievements file produces weak tailored resumes no matter how good the methodology is.

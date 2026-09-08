@@ -89,7 +89,7 @@
     pdfjsLib.GlobalWorkerOptions.workerSrc =
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/6.3.289/pdf.worker.min.mjs';
 
-    pdfjsLib.getDocument('resume.pdf').promise.then(async (pdf) => {
+    pdfjsLib.getDocument({ url: 'resume.pdf' }).promise.then(async (pdf) => {
       container.innerHTML = '';
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);

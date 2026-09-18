@@ -1,0 +1,13 @@
+{
+  "name": "resume-work-apply",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Playwright automation that pre-fills off-LinkedIn ATS application forms and stops before submit — never submits on its own.",
+  "scripts": {
+    "fill": "node fill.js"
+  },
+  "dependencies": {
+    "playwright": "^1.47.0"
+  }
+}

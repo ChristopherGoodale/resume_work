@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head><title>Taleo signup fixture</title></head>
+<body>
+  <!-- Mimics the real 3-step Taleo careersection flow: Privacy Agreement -> Login -> New User Registration -->
+
+  <div id="privacyStep">
+    <input type="hidden" id="javax.faces.ViewState" value="fixture" />
+    <input type="button" id="dialogTemplate-dialogForm-StatementBeforeAuthentificationContent-ContinueButton" value="Continue" onclick="showStep('loginStep')" />
+  </div>
+
+  <div id="loginStep" style="display:none">
+    <input type="text" id="dialogTemplate-dialogForm-login-name1" />
+    <input type="password" id="dialogTemplate-dialogForm-login-password" />
+    <input type="button" id="dialogTemplate-dialogForm-login-defaultCmd" value="Login" />
+    <input type="button" id="dialogTemplate-dialogForm-login-register" value="New User" onclick="showStep('registerStep')" />
+  </div>
+
+  <div id="registerStep" style="display:none">
+    <input type="text" id="dialogTemplate-dialogForm-userName" />
+    <input type="password" id="dialogTemplate-dialogForm-password" />
+    <input type="password" id="dialogTemplate-dialogForm-passwordConfirm" />
+    <input type="text" id="dialogTemplate-dialogForm-email" />
+    <input type="text" id="dialogTemplate-dialogForm-emailConfirm" />
+    <input type="button" id="dialogTemplate-dialogForm-defaultCmd" value="Register" />
+  </div>
+
+  <script>
+    function showStep(id) {
+      for (const step of ["privacyStep", "loginStep", "registerStep"]) {
+        document.getElementById(step).style.display = step === id ? "block" : "none";
+      }
+    }
+  </script>
+</body>
+</html>

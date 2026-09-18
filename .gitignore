@@ -228,3 +228,18 @@ generated_resumes/*.pdf
 # Per-company job postings and generated resumes: kept locally, not pushed
 job_postings/archive/
 generated_resumes/archive/
+
+# Job-application automation (apply/)
+# NOTE: the generic Python "lib/" rule above (from this file's boilerplate
+# section) would otherwise also match apply/lib/ — un-ignore it explicitly.
+!apply/lib/
+!apply/lib/**
+apply/node_modules/
+apply/runs/*
+!apply/runs/.gitkeep
+
+# Non-resume application data — more sensitive than public resume content (EEO/comp answers)
+obsidian_vault/application_profile.md
+
+# Per-employer ATS account metadata (never contains passwords, but keep local anyway)
+ats_accounts.md

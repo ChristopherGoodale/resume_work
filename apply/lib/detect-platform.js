@@ -10,6 +10,7 @@ const HOSTNAME_RULES = [
   { platform: "lever", pattern: /(^|\.)jobs\.lever\.co$/i },
   { platform: "workday", pattern: /myworkdayjobs\.com$/i },
   { platform: "taleo", pattern: /\.taleo\.net$/i },
+  { platform: "ultipro", pattern: /\.ultipro\.com$/i },
 ];
 
 export function detectPlatformFromUrl(url) {

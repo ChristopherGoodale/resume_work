@@ -21,6 +21,31 @@ export async function createAccount({ page, email, password }) {
   const filled = [];
   const needsManualReview = [];
 
+  // Workday's candidate site is a heavy client-rendered SPA — the auth modal
+  // frequently isn't painted yet even after networkidle. Give it a beat
+  // before looking for anything.
+  await page
+    .locator('input[data-automation-id="email"], a:has-text("Create Account")')
+    .first()
+    .waitFor({ state: "visible", timeout: 15000 })
+    .catch(() => {});
+
+  // Some tenants (e.g. Avanade) open straight into the Create Account form.
+  // Others (e.g. Ankura) default to Sign In with a "Create Account" link that
+  // must be clicked first to reveal the registration fields (verifyPassword,
+  // terms checkbox). No-ops harmlessly if the tenant already shows Create
+  // Account, since the link just won't be present.
+  const createAccountLink = page.getByRole("link", { name: "Create Account" }).first();
+  if ((await createAccountLink.count()) > 0) {
+    await createAccountLink.click();
+    await page
+      .locator('input[data-automation-id="verifyPassword"]')
+      .first()
+      .waitFor({ state: "visible", timeout: 10000 })
+      .catch(() => {});
+    filled.push("Clicked 'Create Account' to reach the registration form");
+  }
+
   const emailField = page.locator('input[data-automation-id="email"]').first();
   if ((await emailField.count()) > 0) {
     await emailField.fill(email);

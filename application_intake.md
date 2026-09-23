@@ -9,7 +9,7 @@ Instructions for Claude: follow this end to end whenever the user pastes a job p
 
 ## Non-negotiable rules
 
-- **Never submit anything, on any platform, autonomously.** LinkedIn is manual-only — its ToS prohibits automated form-filling and it runs bot detection, so no code here ever touches a LinkedIn page. Off-LinkedIn ATS forms get filled by Playwright but the run always stops before the submit click (via `page.pause()`) — the user reviews and submits themselves.
+- **Never submit anything, on any platform, autonomously.** LinkedIn is manual-only — its ToS prohibits automated form-filling and it runs bot detection, so no code here ever touches a LinkedIn page. jobright.ai is manual-only for the same reason: its ToS (`jobright.ai/legal/service`) contains a categorical, whole-platform ban on bots/automated scripts, reinforced by a `robots.txt` entry specifically disallowing `ClaudeBot` from `/jobs/` — so no code here ever touches jobright.ai either. Off-LinkedIn, off-jobright ATS forms get filled by Playwright but the run always stops before the submit click (via `page.pause()`) — the user reviews and submits themselves.
 - **Never type an existing/reused password, and never push a password to git.** `apply/fill.js` (job applications) always skips any field typed or labeled as a password. The one deliberate exception is `apply/create-account.js`, which generates a brand-new random password for a new account and records it in `ats_accounts.md` — that file is gitignored and must never be committed; only `ats_accounts.example.md` (no real credentials) is ever pushed.
 - **Never invent resume content.** Resume generation still goes through `methodology.md` unchanged — this file only owns intake/routing, not content selection.
 
@@ -19,9 +19,11 @@ Instructions for Claude: follow this end to end whenever the user pastes a job p
 2. **Extract.** Pull out: company name, role/position title, full job description text, and the *actual apply URL* (may differ from the posting URL — e.g. a LinkedIn post linking out to a company's own Greenhouse/Lever board).
 3. **Classify** the apply URL's platform by hostname (fall back to a DOM check for an embedded Greenhouse/Lever form if the hostname is a custom company domain):
    - `linkedin.com` → **LinkedIn**
+   - `jobright.ai` → **JobRight** (manual-only — see Non-negotiable rules)
    - `boards.greenhouse.io`, `job-boards.greenhouse.io`, or an embedded Greenhouse form → **Greenhouse**
    - `jobs.lever.co`, or an embedded Lever form → **Lever**
    - `*.myworkdayjobs.com` → **Workday** (not automated yet — see Notes)
+   - `*.ultipro.com` → **UltiPro** (UKG Pro Recruiting; account creation only — see Notes)
    - anything else → **Unknown**
 4. **Save the posting** to `job_postings/[company]_[role-slug]_[YYYY.MM.DD].md`, in the same freeform style `methodology.md` already expects, plus one metadata comment line at the top:
    ```
@@ -30,6 +32,7 @@ Instructions for Claude: follow this end to end whenever the user pastes a job p
 5. **Generate materials.** Hand off to `methodology.md` unchanged to produce `generated_resumes/resume_[company]_[date].md` + matching `.pdf`. Do not duplicate any step of that recipe here.
 6. **Route** based on the platform classified in step 3:
    - **LinkedIn** → stop here. Tell the user the resume is ready; they apply and upload it manually via LinkedIn's own flow.
+   - **JobRight** → stop here. Tell the user materials are ready; they send their profile manually via jobright's own "Send My Profile" flow — no automation, per the ToS restriction in Non-negotiable rules.
    - **Greenhouse / Lever** → shell out via Bash:
      ```
      node apply/fill.js --platform <greenhouse|lever> --apply-url "<apply_url>" --resume "generated_resumes/resume_[company]_[date].pdf" --job "job_postings/[company]_[role-slug]_[date].md"
@@ -40,6 +43,11 @@ Instructions for Claude: follow this end to end whenever the user pastes a job p
      node apply/create-account.js --platform workday --signup-url "<signup_url>" --company "<company>"
      ```
      which generates a password, fills the signup form, pauses for the user to confirm account creation, then records the account (including the password) in `ats_accounts.md`. The actual job-application form fill on Workday is still not automated (see Notes) — the user applies manually once logged in.
+   - **UltiPro** → resume/materials are ready. If no account exists yet for this employer, offer to run:
+     ```
+     node apply/create-account.js --platform ultipro --signup-url "<login_redirect_url>" --company "<company>"
+     ```
+     `<login_redirect_url>` is the job board's own `.../Account/Login?redirectUrl=...` link (not the Auth0 `/u/signup` URL directly — its `state` param is a short-lived nonce tied to a live session, so the script must arrive at it by following the real redirect chain, same as Workday/Taleo). This generates a password, clicks through to Auth0's `/u/signup` screen, fills it, pauses for the user to confirm account creation, then records the account in `ats_accounts.md`. UltiPro job-application form filling is not automated (see Notes) — the user applies manually once logged in.
    - **Unknown** → resume/materials only; no automation attempted.
 7. **Log.** Only after the user explicitly confirms they clicked submit themselves, append a row to `applications_log.md` (date, company, role, platform, resume version, status `Applied`).
 
@@ -48,3 +56,4 @@ Instructions for Claude: follow this end to end whenever the user pastes a job p
 - `apply/`'s fill scripts read `obsidian_vault/application_profile.md` for non-resume answers (work auth, compensation, EEO, boilerplate) and `obsidian_vault/achievements.md`'s Identity/Contact block for name/phone/email/LinkedIn/GitHub — nothing is duplicated between them.
 - If `application_profile.md` still has `[FILL IN]` placeholders when a fill run needs that field, the field is reported as needing manual review rather than filled with a placeholder value.
 - Workday *account creation* is automated (`apply/create-account.js`); Workday *job-application form filling* is still an explicit stretch goal, not built this pass — the account-creation and application-filling problems turned out to be separable, and only the former was tractable to do safely so far.
+- UltiPro (UKG Pro Recruiting) *account creation* is automated the same way, against the shared Auth0 login (`signin-us.ultipro.com`) every UltiPro tenant redirects to; UltiPro *job-application form filling* is not built, same stretch-goal status as Workday's.

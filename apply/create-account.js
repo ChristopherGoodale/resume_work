@@ -8,11 +8,12 @@ import { appendAccountRow } from "./lib/accounts-store.js";
 import { writeReport } from "./lib/report.js";
 import * as workday from "./platforms/workday.js";
 import * as taleo from "./platforms/taleo.js";
+import * as ultipro from "./platforms/ultipro.js";
 
 const APPLY_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.join(APPLY_DIR, "..");
 
-const PLATFORM_MODULES = { workday, taleo };
+const PLATFORM_MODULES = { workday, taleo, ultipro };
 
 function parseArgs(argv) {
   const args = {};
@@ -56,6 +57,10 @@ async function main() {
   const browser = await chromium.launch({ headless: false });
   const page = await browser.newPage();
   await page.goto(args["signup-url"], { waitUntil: "domcontentloaded" });
+  // Heavy client-rendered career sites (Workday, etc.) haven't painted the
+  // actual form yet at domcontentloaded — give the SPA a chance to hydrate
+  // before a platform module goes looking for fields.
+  await page.waitForLoadState("networkidle").catch(() => {});
 
   // Some platforms (Taleo) require a separate username distinct from email.
   const username = args.username || email.split("@")[0];

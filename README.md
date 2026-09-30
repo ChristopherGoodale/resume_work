@@ -68,3 +68,4 @@ Whenever a new achievement happens at work, add it to `achievements.md` (role, w
 - A simple log of which resume version was sent to which posting and when
 - ATS/keyword-match scoring — check a generated resume against a posting's keywords before sending
 - Periodic review pass to keep `achievements.md` from going stale as roles change
+- A separate academic-resume flow (parallel `formatting`/`methodology` pair) for graduate-program applications like MSFM, drawing on self-directed learning (courses, books, papers) and the projects it fed, with fuller Education detail (dates, GPA, test scores) than the professional format allows. MBA applications keep using the professional flow as-is.

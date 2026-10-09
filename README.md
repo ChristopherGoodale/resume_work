@@ -9,6 +9,8 @@ Resume content and resume style are split apart so each can evolve independently
 - **`obsidian_vault/achievements.md`** — the source of truth. Every job, achievement, metric, tool, and credential Christopher has, written as plain facts (no resume prose). This is the only place new work should be recorded.
 - **`obsidian_vault/formatting.md`** — the style guide. Layout, header format, bullet pattern, writing rules, tone — how any resume built from this system should look and read.
 - **`methodology.md`** — the recipe. Instructions for Claude (or a person) to take a job posting, cross-reference it against `achievements.md` and `formatting.md`, and produce a new tailored resume.
+- **`playbooks/`** — three resume variants (`recruiter`, `targeted`, `academic`). Each overrides parts of `formatting.md` and shares the same facts and build.
+- **`obsidian_vault/academic_experience.md`** — the learning bank (courses, books, papers, self-study) that feeds the academic playbook. Filled in by hand.
 - **`job_postings/`** — where target job postings get saved before generation.
 - **`generated_resumes/`** — where tailored resumes land after generation, one file per application.
 - **`resume_26.08.05.pdf`** — the original resume this whole system was reverse-engineered from.
@@ -32,6 +34,16 @@ resume_work/
 ```
 
 Every resume tailored to a specific company/posting is generated locally and moved into the relevant `archive/` folder — those folders are gitignored, so only the general-purpose resume is ever pushed to this repo. This keeps company-specific applications and their content decisions off GitHub while still versioning the system that produces them.
+
+## Playbooks
+
+| Playbook | Reader | Summary | Tagline | Output name |
+| --- | --- | --- | --- | --- |
+| `recruiter` | Recruiters, general sharing | Summary plus Looking ahead | Standing positioning | `resume_general_[date]` |
+| `targeted` | One job posting | None | Rewritten to the posting | `resume_[company]_targeted_[date]` |
+| `academic` | Graduate admissions | None | Program-facing | `resume_academic_[program]_[date]` |
+
+Playbook choice: name it in your request, or add `playbook: <name>` to the posting's metadata comment. With a posting the default is `targeted`, without one it is `recruiter`.
 
 ## How to generate a new resume
 
@@ -68,4 +80,4 @@ Whenever a new achievement happens at work, add it to `achievements.md` (role, w
 - A simple log of which resume version was sent to which posting and when
 - ATS/keyword-match scoring — check a generated resume against a posting's keywords before sending
 - Periodic review pass to keep `achievements.md` from going stale as roles change
-- A separate academic-resume flow (parallel `formatting`/`methodology` pair) for graduate-program applications like MSFM, drawing on self-directed learning (courses, books, papers) and the projects it fed, with fuller Education detail (dates, GPA, test scores) than the professional format allows. MBA applications keep using the professional flow as-is.
+- Fill in `obsidian_vault/academic_experience.md` so the academic playbook has content (courses, books, papers, test scores, each linked to where it was applied). MBA applications keep using the recruiter or targeted playbook.

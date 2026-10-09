@@ -30,6 +30,7 @@ Raw facts, stripped of resume formatting (no bold lead phrases, no em-dash bulle
 - **Analytics & ML**: Time-series forecasting (ARIMA), anomaly detection (isolation forest), embedding / nearest-neighbor similarity search, A/B testing & MDE (minimum detectable effect) design, statistical analysis, funnel analysis, cohort analysis
 - **BI & Visualization**: Tableau, Power BI, Streamlit, Excel (advanced)
 - **Cloud & Tooling**: AWS, Docker, Git, Linux, JIRA, Confluence
+- **Added 2026.10.07 (user-confirmed, for Applied Systems)**: C#, gRPC, Google Cloud Platform, Kubernetes, Terraform, CI/CD, automated testing
 - **Enterprise / ERP**: SAP, Workday, NetSuite, MIP, Sage Timberline
 - **Applied AI**: Claude Code, Claude Skills, AI Agent Workflows =
 

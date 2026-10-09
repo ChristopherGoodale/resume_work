@@ -221,6 +221,7 @@ __marimo__/
 # except the general resume, which is pushed to the repo
 generated_resumes/*.pdf
 !generated_resumes/resume_general_*.pdf
+!generated_resumes/resume_academic_general_*.pdf
 
 # Reference resume PDFs (contain personal contact info)
 /resume_*.pdf

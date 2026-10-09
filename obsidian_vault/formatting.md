@@ -7,6 +7,8 @@ description: Style and formatting conventions for Christopher Goodale's resume. 
 
 Reference document for reproducing the style, structure, and writing conventions of the resume. Style only - no personal content here. Content lives in `achievements.md`.
 
+**Playbooks:** this file is the baseline, which the `recruiter` playbook uses unchanged. The `targeted` and `academic` playbooks in `playbooks/` override the section order, the SUMMARY block, bullet counts, and the Education rules (no dates, no GPA). When a playbook and this file disagree, the playbook wins.
+
 **ATS note:** em dashes (`—`) are avoided throughout this format in favor of plain hyphens (`-`). Some ATS parsers mangle unicode punctuation like em dashes; hyphens are universally safe plain-text characters.
 
 ---

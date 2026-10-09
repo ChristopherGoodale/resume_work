@@ -12,13 +12,24 @@ Instructions for generating a new, tailored version of Christopher Goodale's res
 - `obsidian_vault/achievements.md` — the raw content bank: every role, achievement, tool, and credential, stripped of resume prose. This is the only place facts may come from — do not invent achievements, metrics, or tools not present here.
 - `obsidian_vault/formatting.md` — the style rules: layout, header block, section order, bullet pattern, writing rules, tone, and the final checklist. This governs *how* the selected content is rendered.
 
+## Playbooks
+
+Three playbooks live in `playbooks/`. Each overrides parts of `formatting.md` (tagline, sections, bullet strategy) and shares everything else (facts, stylesheet, Pandoc build).
+
+| Playbook | Use when | Output name |
+| --- | --- | --- |
+| `recruiter` | No posting. General distribution. | `resume_general_[date]` |
+| `targeted` | A posting exists. Default when one is present. | `resume_[company]_targeted_[date]` |
+| `academic` | Graduate program application. | `resume_academic_[program]_[date]` |
+
 ## Steps
 
+0. **Pick the playbook.** Order of precedence: the user's instruction, then a `playbook: <name>` field in the posting's first-line metadata comment, then the default (`targeted` with a posting, `recruiter` without). Read `playbooks/<name>.md` and apply it in steps 2 to 5. Where the playbook and `formatting.md` disagree, the playbook wins. The academic playbook also reads `obsidian_vault/academic_experience.md`.
 1. **Parse the posting.** Extract the target role title, required/preferred skills, keywords, seniority signals, and domain (e.g. credit risk, ML/data science, BI, FP&A).
 2. **Score and select achievements.** For each role in `achievements.md`, rank its achievement items by relevance to the posting's keywords/skills/domain. Select the top items per role following `formatting.md`'s bullet-count guidance (5–8 for major/recent roles, 1–3 for early/short roles). Always keep at least one quantified result per role. Don't force-fit an achievement into a posting it has no real relevance to — it's fine for a role to run at the low end of its range.
-3. **Rewrite the summary and skills.** Rewrite SUMMARY to front-load the experience and tools most relevant to this posting, following the template pattern in `formatting.md`. Reorder TECHNICAL SKILLS categories so the most relevant category leads; only include skill items that exist in `achievements.md`.
+3. **Rewrite the summary and skills.** (Targeted and Academic have no SUMMARY. Skip the summary part and only reorder skills.) Rewrite SUMMARY to front-load the experience and tools most relevant to this posting, following the template pattern in `formatting.md`. Reorder TECHNICAL SKILLS categories so the most relevant category leads; only include skill items that exist in `achievements.md`.
 4. **Apply formatting.** Render the selected achievements into the bold-lead-phrase + hyphen bullet pattern and full document structure defined in `formatting.md` (header block, section order, job header format, education block).
-5. **Output.** Write the tailored resume as a new markdown file under `generated_resumes/`, named `resume_[company]_[YYYY.MM.DD].md`. Confirm it fits the target page count (1 page preferred).
+5. **Output.** Write the resume as a new markdown file under `generated_resumes/`, named per the playbook table above (for example `resume_[company]_targeted_[YYYY.MM.DD].md`). Confirm it fits the target page count (1 page preferred).
 6. **Export to PDF.** Convert the markdown file to a same-named `.pdf` in `generated_resumes/` using Pandoc + wkhtmltopdf with the shared stylesheet:
    ```
    pandoc generated_resumes/resume_[company]_[date].md -o generated_resumes/resume_[company]_[date].pdf --pdf-engine=wkhtmltopdf -c obsidian_vault/resume_style.css

@@ -27,9 +27,10 @@ Instructions for Claude: follow this end to end whenever the user pastes a job p
    - anything else → **Unknown**
 4. **Save the posting** to `job_postings/[company]_[role-slug]_[YYYY.MM.DD].md`, in the same freeform style `methodology.md` already expects, plus one metadata comment line at the top:
    ```
-   <!-- source_url: <original URL> | apply_url: <actual apply URL> | platform: <classification> -->
+   <!-- source_url: <original URL> | apply_url: <actual apply URL> | platform: <classification> | playbook: targeted -->
    ```
-5. **Generate materials.** Hand off to `methodology.md` unchanged to produce `generated_resumes/resume_[company]_[date].md` + matching `.pdf`. Do not duplicate any step of that recipe here.
+   `playbook` defaults to `targeted` for a saved posting. `methodology.md` step 0 reads it.
+5. **Generate materials.** Hand off to `methodology.md` unchanged to produce `generated_resumes/resume_[company]_targeted_[date].md` + matching `.pdf`. Substitute the PDF path in the `--resume` argument below to match. Do not duplicate any step of that recipe here.
 6. **Route** based on the platform classified in step 3:
    - **LinkedIn** → stop here. Tell the user the resume is ready; they apply and upload it manually via LinkedIn's own flow.
    - **JobRight** → stop here. Tell the user materials are ready; they send their profile manually via jobright's own "Send My Profile" flow — no automation, per the ToS restriction in Non-negotiable rules.
